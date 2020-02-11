@@ -1,6 +1,6 @@
 {
     "homepage": "https://marcinparda.github.io/First-CRA-app/",
-    "name": "stoper",
+    "name": "react-training",
     "version": "0.1.0",
     "private": true,
     "dependencies": {
