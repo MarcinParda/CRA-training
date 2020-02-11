@@ -1,37 +1,27 @@
 import React, { Component } from "react";
 import "./App.css";
-import SwitchButton from "./SwitchButton";
+import Word from "./Word";
 
 class App extends Component {
   state = {
-    time: 0,
-    active: false
+    words: []
   };
 
-  handleClick = () => {
-    if (this.state.active) {
-      clearInterval(this.idInterval);
-    } else {
-      this.idInterval = setInterval(() => this.addSecond(), 1000);
-    }
-    this.setState({
-      active: !this.state.active
-    });
-  };
-
-  addSecond = () => {
-    this.setState({
-      time: this.state.time + 1
-    });
-  };
+  componentDidMount() {
+    fetch("data/words.json")
+      .then(response => response.json())
+      .then(data => {
+        this.setState({
+          words: data.words
+        });
+      });
+  }
 
   render() {
-    return (
-      <>
-        <p>{this.state.time}</p>
-        <SwitchButton click={this.handleClick} active={this.state.active} />
-      </>
-    );
+    const words = this.state.words.map(word => (
+      <Word key={word.id} english={word.en} polish={word.pl} />
+    ));
+    return <ul>{words}</ul>;
   }
 }
 
